@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./assets/images/20210421_162847 (Traced).png">
+    <title>Events-Impulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Kameron:wght@400..700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/vermin-verile" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+                screens: {
+                    'custom-sm': '321px',
+                    'custom-md': '768px',
+                    'custom-lg': '1024px',
+                    'custom-bar': '1138px',
+                    'custom-tab':'800px',
+                },
+                colors: {
+                    'custom-events-card':'rgba(217, 217, 217, 0.4)',
+                    'custom-events-card-nav':'rgba(90, 72, 108, 0.8)',
+                    'custom-events-card-nav-hover':'rgba(217, 217, 217, 0.5)',
+                    'custom-white': '#FFFFFF',
+                    'custom-gray': '#D9D9D9',
+                    'custom-violet': '#270944',
+                },
+                fontFamily: {
+                    greatVibes: ['Great Vibes', 'cursive'],
+                    kameron: ['Kameron', 'serif'],
+                    urbanist: ['Urbanist', 'sans-serif'],
+                },
+               
+            },
+          }
+        }
+    </script>
+    <style>
+        .event-container {
+            position: relative;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .event-container.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        .popup {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .event-subcontainer:hover .popup {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="h-[100vh] bg-custom-violet">
+    <header class="w-[100vw] fixed top-0 z-20 bg-transparent backdrop-blur-sm  h-[60px] md:h-[75px] " id="header" >
+        <div class="2xl:container">
+            <div class="w-[90%] mx-auto h-[60px] grid grid-cols-1 lg:grid-cols-2">
+                <div class="flex items-center justify-between ">
+                   <div class="flex items-center justify-between">
+                    <img src="./assets/images/Impulsenew.png" alt="" class="h-8 md:h-16">
+                   </div>
+    
+                    <div class="lg:hidden">
+                        <div class="text-white">
+                            <i class="ri-menu-line text-[2em]" id="ham"></i>
+                            <i class="ri-close-large-line hidden" id="cross"></i>
+                        </div>
+                    </div>
+                </div>
+    
+    
+    
+    
+               
+    
+    
+                 <div class="lg:block hidden py-7">
+                    <nav class=" flex justify-end items-center lg:items-center lg:justify-end gap-6">
+                       
+                         <ul class="flex justify-between space-x-14 text-white ">
+                            <li class="hover:border-2 border-white rounded-full p-2 -mt-2 py-1"><a href="./index.html">Home</a></li>
+                            <li class="hover:border-2 border-white rounded-full p-2 -mt-2 py-1"><a href="./about.html">About</a></li>
+                            <li class="hover:border-2 border-white rounded-full p-2 -mt-2 py-1"><a href="./events.html">Events</a></li>
+                            <li class="hover:border-2 border-white rounded-full p-2 -mt-2 py-1"><a href="https://linktr.ee/Impulse_OG">Register</a></li>
+                         </ul>
+                        
+                         
+                      </nav>
+                 </div>
+                 
+                
+            </div>
+        </div>
+    
+    </header>
+
+    <section class="lg:hidden fixed right-0 top-12 w-[100vw] h-[100vh] hidden backdrop-blur-sm bg-opacity-30 bg-black z-50" id="content">
+        <nav class="flex justify-start items-center">
+            <div class="flex items-start justify-center">
+             <ul class=" text-white h-[40vh] w-[100vw] flex flex-col gap-y-8 items-center pt-8">
+                <li><a href="./index.html" id="home1">Home</a></li>
+                <li><a href="./about.html" id="about1">About</a></li>
+                <li><a href="./events.html" id="events1">Events</a></li>
+                <li class="border-2 border-white rounded-full p-2 -mt-2 py-1" id="register1"><a href="">Register</a></li>
+             </ul>
+            </div>
+             
+          </nav>
+    </section>
+    <!-- <section class="mt-[75px] font-['Kameron'] mb-5">
+        <div class="2xl:container bg-custom-violet ">
+            <div class="w-[90%] mx-auto pt-5 text-custom-white bg-custom-events-card grid grid-cols-1 custom-bar:grid-cols-3">
+                <div class="font-kameron tracking-widest col-span-1 flex justify-center font-bold text-[40px] items-center underline underline-offset-[8px] custom-bar:pr-[100px] custom-bar:underline-offset-[25px]">Events</div>
+                <div class="col-span-2 flex flex-col gap-y-2 justify-center items-center md:flex-row custom-tab:justify-around">
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-semibold border-2 border-solid rounded-2xl py-1 px-1 min-w-32" data-filter="all">ALL</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-semibold border-2 border-solid rounded-2xl py-1 px-1 min-w-32" data-filter="technical">TECHNICAL</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-semibold border-2 border-solid rounded-2xl py-1 px-2 min-w-32" data-filter="non-technical">NON-TECHNICAL</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-semibold border-2 border-solid rounded-2xl py-1 px-1 min-w-32" data-filter="online">ONLINE</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-semibold border-2 border-solid rounded-2xl py-1 px-1 min-w-32" data-filter="workshops">WORKSHOPS</button>
+                </div>
+            </div>
+
+            <div class="w-[90%] mx-auto bg-custom-events-card grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 pt-10 pb-10">
+                <div class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/paper presentation.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300  ">Paper presentation</div>
+                    </div>
+                </div>
+                <div class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagequiz.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Tech and Tangles</div>
+                    </div>
+                </div>
+                <div class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagewiring.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Techsmith</div>
+                    </div>
+                </div>
+                <div class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagecircuit.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Fixitron</div>
+                    </div>
+                </div>
+                <div class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagestartuppitch.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">LaunchPad</div>
+                    </div>
+                </div>
+                
+                <div class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagewiring (1).png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Wiring Wits</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageev.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Electric Vehicle Workshop</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagerenewable.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Renewable Energy Workshop</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageentre.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Entrepreneurship Workshop</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/cad.avif" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Cad Designing Workshop</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageiot.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">IOT Workshop</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagekuka.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">KUKA Workshop</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="non-technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageconnection.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Connection</div>
+                    </div>
+                </div>
+
+                
+                <div class="event-container flex justify-center items-center" data-type="non-technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagepubg.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Battle Blitz</div>
+                    </div>
+                </div>
+                
+                <div class="event-container flex justify-center items-center" data-type="non-technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagevideo.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Vidvortex</div>
+                    </div>
+                </div>
+
+                
+                <div class="event-container flex justify-center items-center" data-type="non-technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageuiux.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Design Verse</div>
+                    </div>
+                </div>
+                
+                <div class="event-container flex justify-center items-center" data-type="non-technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagedebate.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Words at War</div>
+                    </div>
+                </div>
+                <div class="event-container flex justify-center items-center" data-type="online">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagememe.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Mock a Meme</div>
+                    </div>
+                </div>
+                <div class="event-container flex justify-center items-center" data-type="online">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagephotpo.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Pictopop</div>
+                    </div>
+                </div>
+
+                <div class="event-container flex justify-center items-center" data-type="online">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagedraw.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Pallete Fest</div>
+                    </div>
+                </div>
+                <div class="event-container flex justify-center items-center" data-type="online">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageposter.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">GraphiFlicks</div>
+                    </div>
+                </div>
+
+                
+                
+                
+            </div>
+        </div>
+    </section> -->
+    
+    <section class="mt-[75px] font-['Kameron'] ">
+        <div class="2xl:container bg-custom-violet">
+            <div class="w-[90%] mx-auto pt-5 text-custom-white bg-custom-events-card grid grid-cols-1 custom-bar:grid-cols-3">
+                <div class="font-kameron tracking-widest col-span-1 flex justify-center font-bold text-[40px] items-center underline underline-offset-[8px] custom-bar:pr-[100px] custom-bar:underline-offset-[25px]">Events</div>
+                <div class="col-span-2 flex flex-col gap-y-2 justify-center items-center md:flex-row custom-tab:justify-around">
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-bold border-2 border-solid rounded-2xl py-1 px-1 min-w-32 " data-filter="all">ALL</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-bold border-2 border-solid rounded-2xl py-1 px-1 min-w-32" data-filter="technical">TECHNICAL</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-bold border-2 border-solid rounded-2xl py-1 px-2 min-w-32" data-filter="non-technical">NON-TECHNICAL</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-bold border-2 border-solid rounded-2xl py-1 px-1 min-w-32" data-filter="online">ONLINE</button>
+                    <button class="font-urbanist text-sm bg-custom-events-card-nav hover:bg-custom-events-card-nav-hover duration-200 tracking-widest font-bold border-2 border-solid rounded-2xl py-1 px-1 min-w-32" data-filter="workshops">WORKSHOPS</button>
+                </div>
+            </div>
+    
+            <div class="w-[90%] mx-auto bg-custom-events-card grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 pt-10 pb-10">
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdFq-0GvmPyEQPmclP5OBf3waqJ987YiaghdTATx8PnRH_0_A/viewform" class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/paper presentation.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Paper Presentation</div>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjG6nDolYCLbf0qcRcfQ17XWMFzJt9qxMxBXB1KykeHQ3rXA/viewform" class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/imagequiz.png" alt="Tech and Tangles" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Tech and Tangles</div>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfgKFLNkqe7KjPy-Nwmwx-cVz1vTfIMS8Ae3EWvbRMmfReLPw/viewform" class="event-container flex justify-center items-center" data-type="technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/imagewiring.png" alt="Techsmith" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Techsmith</div>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-sZ9kQWKLotYg-Atl-IlidGFsSpTjz43tRpTSoSaT4tVdbg/viewform" class="event-container flex justify-center items-center" data-type="technical">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagecircuit.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Fixitron</div>
+                        </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSew20Ijb5ShWqZ63HBmuzqhiKtCm0BXoBjYs-9Z6YsIIA3TXA/viewform" class="event-container flex justify-center items-center" data-type="technical">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagestartuppitch.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">LaunchPad</div>
+                        </div>
+
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYckBqB1FJ2tn0hdT0MmVkE9LD1FuIhQbEr8AiN5hJUrnKHg/viewform" class="event-container flex justify-center items-center" data-type="technical">
+            
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagewiring (1).png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Wiring Wits</div>
+                        </div>
+                </a>
+                
+                
+    
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfse_refF-E0yKmdjrKWEZExxRIg_2gULjll6WCU1XWlMunfQ/viewform" class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/imageev.png" alt="Electric Vehicle Workshop" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Electric Vehicle Workshop</div>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAxpedq6KEnIx7zQCd-bUFxcpeQXrqaCEepaRNMzzMVn6b8g/viewform" class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/imagerenewable.png" alt="Renewable Energy Workshop" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Renewable Energy Workshop</div>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfbhOY4ySfifmV9Jrjh0PbvshZibjP_33hsppVCyY4kjL6sWQ/viewform" class="event-container flex justify-center items-center" data-type="workshops">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageentre.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Entrepreneurship Workshop</div>
+                        </div>
+                </a>
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSesLsTJEicM6bzlCj__AltrMwNuP5sUNfKeFRSGxFZiqs8Qmg/viewform" class="event-container flex justify-center items-center" data-type="workshops">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/cad.avif" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Cad Designing Workshop</div>
+                        </div>
+                    
+                </a>
+                
+               
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSelhdTi29dDtDfwk3-lIkmvQiPyuAqwic288NCf5m80dbfHgQ/viewform" class="event-container flex justify-center items-center" data-type="workshops">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageiot.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">IOT Workshop</div>
+                        </div>
+                </a>
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdi6xF8VM6cgcJiyuvaYg5YyzChjDBT5PEXZ5jWKdYIoKjP6Q/viewform" class="event-container flex justify-center items-center" data-type="workshops">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagekuka.png" alt="paper" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">KUKA Workshop</div>
+                    </div>
+            </a>
+                    
+
+                
+                
+    
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSd2aDmGpStg_ERWx99UqAIlYvnNFyxRej0VJ-bjv2adAOcDFw/viewform" class="event-container flex justify-center items-center" data-type="non-technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/imageconnection.png" alt="Connection" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Connection</div>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-6RHhnVFIpHPki_d7JaDe41sdsgRY5Wuy276wLoLVH2K5vA/viewform" class="event-container flex justify-center items-center" data-type="non-technical">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/imagepubg.png" alt="Battle Blitz" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Battle Blitz</div>
+                    </div>
+                </a>
+
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSddvDdz-KlsKVyKuUKkbnrWldw5E0h5VpwxKPg7vOK79niJGQ/viewform" class="event-container flex justify-center items-center" data-type="non-technical">
+
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagevideo.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Vidvortex</div>
+                        </div>
+
+                </a>
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe2LPYpfMpLsVxkELLnMgpF_f4fqyJs84NPHRLFAQj-M15r1Q/viewform" class="event-container flex justify-center items-center" data-type="non-technical">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageuiux.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Design Verse</div>
+                        </div>
+                    
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc1c0xqO1evB-CuaSPWd1EY9l_bdVJTiDTOiFkIZ0cm-yULag/viewform" class="event-container flex justify-center items-center" data-type="non-technical">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagedebate.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Words at War</div>
+                        </div>
+                </a>
+                
+                
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdGoHBXNe_96I_2f049HPw6ODe149bGz93UoOrWv1vn-H-u-g/viewform" class="event-container flex justify-center items-center" data-type="online">
+                    <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative">
+                        <img src="./assets/images/imagememe.png" alt="Mock a Meme" class="h-[100%] rounded-md">
+                        <div class="popup duration-300">Mock a Meme</div>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdp2cymNlPwhd0rbszJVHwqJqkLRWfkvyDQgd2PihDywo5Osw/viewform" class="event-container flex justify-center items-center" data-type="online">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagephotpo.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Pictopop</div>
+                        </div>
+                    
+
+                </a>
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXICoJYVAZUA-ja6w0pTrgkl7HXuGmpviisd_tOqkmT8Mb0w/viewform" class="event-container flex justify-center items-center" data-type="online">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imagedraw.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">Pallete Fest</div>
+                        </div>
+                    
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-OxEfSlg1Ue4E3Sk6CdqG89szgDospjBaC3VhWn-O4GCtUw/viewform" class="event-container flex justify-center items-center" data-type="online">
+                        <div class="event-subcontainer h-80 w-60 bg-white flex justify-center items-center rounded-md hover:scale-110 duration-500 hover:shadow-2xl relative"><img src="./assets/images/imageposter.png" alt="paper" class="h-[100%] rounded-md">
+                            <div class="popup duration-300">GraphiFlicks</div>
+                        </div>
+                    
+                </a>
+                
+
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="font-['Kameron'] pt-16 pb-16 ">
+        <div class="2xl:container h-[]">
+            <div class="w-[98%] mx-auto grid grid-cols-1 lg:grid-cols-10 justify-center items-center gap-x-3">
+                <div class="col-span-2 flex justify-center ml-20 lg:ml-0"><img src="./assets/images/Impulse Footer.png" alt="" class="h-[100%]"> </div>
+                <div class="col-span-8 text-center md:text-left">
+                    <h1 class="text-4xl font-semibold text-white mb-5 mt-5 lg:mt-0">Get Updates Here!</h1>
+                    <div class="md:grid lg:grid-cols-12 gap-y-3 flex flex-col justify-center items-center">
+                    <div class=" col-span-3 bg-white bg-opacity-10 border-white border-2 border-opacity-40 rounded-lg min-h-[120px] p-3 text-white">
+                        <h1>Address</h1>
+                        <p>Chennai Institute of Technology, <br>
+                            Sarathy Nagar, Kundrathur,Chennai
+                        </p>
+                    </div>
+                    <div class="  lg:order-2 w-[100%] col-span-6 flex justify-center items-center gap-4 lg:gap-4 text-white">
+                        <div>
+                            <p class="text-2xl lg:text-4xl" id="days">00</p>
+                            <span class="text-lg lg:text-2xl font-semibold">Days</span>
+                        </div>
+                        <div>
+                            <p class="text-2xl lg:text-4xl"  id="hours">00</p>
+                            <span class="text-lg lg:text-2xl font-semibold">Hours</span>
+                        </div>
+                        <div>
+                            <p class="text-2xl lg:text-4xl"  id="minutes">00</p>
+                            <span class="text-lg lg:text-2xl font-semibold">Minutes</span>
+                        </div>
+                        <div>
+                            <p class="text-2xl lg:text-4xl"  id="seconds">00</p>
+                            <span class="text-lg lg:text-2xl font-semibold">Seconds</span>
+                        </div>
+                    </div>
+                    <div class="  lg:order-3 col-span-3 bg-white bg-opacity-10 border-white border-opacity-40 border-2 rounded-lg min-h-[120px] p-3 text-white">
+                        <h1>Contact</h1>
+                        <p>Navaneetha (6379166731) <br>Avinas (9344667430)</p>
+                    </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+       </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('button[data-filter]');
+            const eventContainers = document.querySelectorAll('.event-container');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.getAttribute('data-filter');
+                    eventContainers.forEach(container => {
+                        container.classList.add('hidden'); 
+                        setTimeout(() => {
+                            if (filter === 'all' || container.getAttribute('data-type') === filter) {
+                                container.style.display = 'flex'; 
+                                container.classList.remove('hidden'); 
+                            } else {
+                                container.style.display = 'none'; 
+                            }
+                        },700); 
+                    });
+                });
+            });
+        });
+    </script>
+    <script src="./script.js"></script>
+     
+</body>
+</html>
